@@ -3,12 +3,18 @@ import Button from "./components/Button";
 import classes from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { counterActions } from "./redux/counter-slice";
-import { Fragment, useRef } from "react";
+import { Fragment } from "react";
+import { useForm } from "react-hook-form";
 
 function App() {
   const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
-  const inputValue = useRef();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const addOneHandler = () => {
     dispatch(counterActions.addOne());
@@ -18,20 +24,9 @@ function App() {
     dispatch(counterActions.removeOne());
   };
 
-  const addValueToCounterHandler = () => {
-    const enteredValue = inputValue.current.value;
-
-    if (enteredValue < 1) {
-      alert("Il valore inserito non può essere inferiore ad 1");
-      return;
-    } else if (enteredValue > 100) {
-      alert("Il valore inserito non può essere maggiore di 100");
-      return;
-    }
-
-    dispatch(counterActions.addCustomValue(enteredValue));
-
-    inputValue.current.value = "";
+  const customValueHandler = (data) => {
+    dispatch(counterActions.addCustomValue(data.number));
+    reset();
   };
 
   return (
@@ -47,16 +42,30 @@ function App() {
           </Button>
         </div>
         <div className={classes.counter}>{counter}</div>
-        <div className={classes["input-control"]}>
-          <input
-            className={classes.input}
-            type="number"
-            min="1"
-            max="100"
-            ref={inputValue}
-          />
-          <Button onClick={addValueToCounterHandler}>Aggiungi</Button>
-        </div>
+        <form
+          onSubmit={handleSubmit(customValueHandler)}
+          className={classes["input-control"]}
+        >
+          <div className={classes["input-controls"]}>
+            <input
+              className={classes.input}
+              type="number"
+              {...register("number", {
+                required: true,
+                min: 1,
+                max: 100,
+              })}
+            />
+            {errors.number && (
+              <span className={classes.span}>
+                {errors.number.type === "required" && "Campo obbligatorio!!"}
+                {errors.number.type === "min" && "Il valore minimo è 1!!"}
+                {errors.number.type === "max" && "Il valore massimo è 100!!"}
+              </span>
+            )}
+          </div>
+          <input className={classes["input-submit"]} type="submit" />
+        </form>
       </div>
     </Fragment>
   );

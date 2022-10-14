@@ -26,7 +26,7 @@
 .input-control {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .input {
@@ -37,4 +37,31 @@
   font-size: 2rem;
   font-weight: 900;
   background-color: #555;
+}
+
+.input-controls {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.input-submit {
+  background-color: black;
+  color: goldenrod;
+  margin: 0 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  min-width: 5rem;
+  font-size: 2rem;
+}
+
+.input-submit:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.span {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: rgb(185, 24, 24);
 }
