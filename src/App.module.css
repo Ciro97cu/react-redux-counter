@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  background-color: black;
+  color: goldenrod;
+  padding: 1rem 0;
+  border-bottom: 5px solid goldenrod;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.counter {
+  background-color: black;
+  color: goldenrod;
+  font-size: 3rem;
+  padding: 1rem 5rem;
+  border-radius: 0.25rem;
+}
+
+.input-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.input {
+  min-width: 15rem;
+  min-height: 3.5rem;
+  padding: 0.5rem;
+  color: goldenrod;
+  font-size: 2rem;
+  font-weight: 900;
+  background-color: #555;
+}
